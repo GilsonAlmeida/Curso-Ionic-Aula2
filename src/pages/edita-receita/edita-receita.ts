@@ -156,4 +156,8 @@ export class EditaReceitaPage {
     return alert;
   }
 
+ removeIngrediente(index: number) {
+    (<FormArray>this.formReceita.get('ingredientes')).removeAt(index);    
+  }
+
 }

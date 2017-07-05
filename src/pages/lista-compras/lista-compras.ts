@@ -17,7 +17,7 @@ export class ListaComprasPage {
 
  
   incluiItem(form: NgForm) {
-    console.log(form);
+    
     this.listaComprasService.incluiItem(form.value.nomeIngrediente, form.value.qtdeIngrediente);
     form.reset();
     this.carregaItens();

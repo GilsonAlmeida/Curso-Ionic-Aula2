@@ -31,6 +31,9 @@
       <ion-item *ngFor="let igControl of formReceita.get('ingredientes').controls; let i = index">
         <ion-label>Nome</ion-label>
         <ion-input type="text" [formControlName]="i"></ion-input>
+        <button ion-button item-right (click)="removeIngrediente(i)">
+              <ion-icon name="trash"></ion-icon>
+        </button>
       </ion-item>
     </ion-list>
     <button type="submit" ion-button block [disabled]="!formReceita.valid">{{ mode }} Receita</button>
