@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Receita } from "../../models/receita";
 import { EditaReceitaPage } from "../edita-receita/edita-receita";
-
+import { AlertController } from 'ionic-angular';
 
 
 @Component({
@@ -18,7 +18,8 @@ export class ReceitaPage implements OnInit {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private listaComprasService: ListaComprasService,
-              private receitasService: ReceitasService ) {}
+              private receitasService: ReceitasService,
+              public alertCtrl: AlertController ) {}
 
   ngOnInit(): void {
       this.receita=this.navParams.get('receita');
@@ -30,12 +31,33 @@ export class ReceitaPage implements OnInit {
   }
 
   removeReceita() {
-    this.receitasService.removeReceita(this.index);
-    this.navCtrl.popToRoot();
+     let confirm = this.alertCtrl.create({
+      title: 'Remover a receita',
+      message: 'Tem certeza que deseja remover a Receita?',
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.receitasService.removeReceita(this.index);
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   adicionaIngredientes() {
     this.listaComprasService.incluiItens(this.receita.ingredientes);
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      subTitle: 'Ingredientes adicionados a lista de compras!',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 
